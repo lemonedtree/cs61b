@@ -3,10 +3,10 @@ public class LinkedListDeque<T> {
     private Node sentF;
     private Node sentB;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         size = 0;
-        sentB = new Node(null,null,null);
-        sentF = new Node(null,null,sentB);
+        sentB = new Node(null, null, null);
+        sentF = new Node(null, null, sentB);
         sentB.prev = sentF;
     }
 
@@ -16,7 +16,7 @@ public class LinkedListDeque<T> {
         private T item;
         private Node(){
         }
-        private Node(Node prev,T item,Node last){
+        private Node(Node prev, T item, Node last) {
             this.last = last;
             this.prev = prev;
             this.item = item;
@@ -29,7 +29,7 @@ public class LinkedListDeque<T> {
         //must not involve any looping or recursion.
         // A single such operation must take “constant time”,
         // i.e. execution time should not depend on the size of the deque.
-        Node target = new Node(sentF,item,sentF.last);
+        Node target = new Node(sentF, item, sentF.last);
         sentF.last.prev = target;
         sentF.last = target;
         size++;
@@ -42,9 +42,9 @@ public class LinkedListDeque<T> {
         //must not involve any looping or recursion.
         // A single such operation must take “constant time”,
         // i.e. execution time should not depend on the size of the deque.
-        Node target = new Node(sentB.prev,item,sentB);
+        Node target = new Node(sentB.prev, item, sentB);
         sentB.prev.last = target;
-        sentF.prev = target;
+        sentB.prev = target;
         size++;
     }
 
@@ -52,8 +52,8 @@ public class LinkedListDeque<T> {
      * Returns true if deque is empty, false otherwise.
      * @return boolean
      */
-    public boolean isEmpty(){
-        if (size == 0){
+    public boolean isEmpty() {
+        if (size == 0) {
             return true;
         }
         return false;
@@ -71,10 +71,10 @@ public class LinkedListDeque<T> {
     /**
      * Prints the items in the deque from first to last, separated by a space.
      */
-    public void printDeque(){
+    public void printDeque() {
         Node p = sentF.last;
-        while(p != sentB){
-            System.out.print(p.item +" ");
+        while(p != sentB) {
+            System.out.print(p.item + " ");
             p = p.last;
         }
     }
@@ -87,7 +87,7 @@ public class LinkedListDeque<T> {
         //must not involve any looping or recursion.
         // A single such operation must take “constant time”,
         // i.e. execution time should not depend on the size of the deque.
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         Node result = sentF.last;
@@ -105,7 +105,7 @@ public class LinkedListDeque<T> {
         //must not involve any looping or recursion.
         // A single such operation must take “constant time”,
         // i.e. execution time should not depend on the size of the deque.
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         Node result = sentB.prev;
@@ -120,22 +120,21 @@ public class LinkedListDeque<T> {
      * @param index
      * @return T
      */
-    public T get(int index){
+    public T get(int index) {
         //must use iteration, not recursion
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             return null;
         }
 
-        if (index < (size/2)){
+        if (index < (size / 2)) {
             Node p = sentF;
             for (int i = 0; i <= index; i++) {
                 p = p.last;
             }
             return p.item;
-        }
-        else{
+        } else {
             Node p = sentB;
-            for (int i = size-1; i >= index; i--) {
+            for (int i = size - 1; i >= index; i--) {
                 p = p.prev;
             }
             return p.item;
@@ -144,10 +143,10 @@ public class LinkedListDeque<T> {
 
     public T getRecursive(int index) {
         //Same as get, but uses recursion.
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             return null;
         }
-        if(index == 0){
+        if (index == 0) {
             return sentF.last.item;
         }
         this.removeFirst();
