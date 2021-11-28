@@ -152,8 +152,8 @@ public class ArrayDeque<T> {
         nextFirst = toFirst();
 
         //downsize
-        if ((size * 1.0 / (items.length)) < 0.25 && items.length >= 16) {
-            resize(size / 2);
+        if (size * 1.0 / (items.length) <= 0.25 && items.length >= 16) {
+            resize(items.length / 2);
         }
 
         return target;
@@ -175,8 +175,8 @@ public class ArrayDeque<T> {
         nextLast = toLast();
 
         //downsize
-        if (size * 1.0 / (items.length) < 0.25 && items.length >= 16) {
-            resize(size / 2);
+        if (size * 1.0 / (items.length) <= 0.25 && items.length >= 16) {
+            resize(items.length / 2);
         }
 
         return target;
