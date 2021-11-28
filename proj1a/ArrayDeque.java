@@ -37,15 +37,16 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
 
-        //resize
-        if (items.length == size + 2) {
-            this.resize(size * 2);
-        }
-
+        //change nextFirst
         if (nextFirst == 0) {
             nextFirst = items.length - 1;
         } else {
             nextFirst--;
+        }
+
+        //resize
+        if (items.length == size + 2) {
+            this.resize(size * 2);
         }
     }
 
@@ -56,18 +57,18 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         // take constant time, except during resizing operations.
         items[nextLast] = item;
-
         size++;
 
-        //resize
-        if (items.length == size + 2) {
-            this.resize(size * 2);
-        }
-
+        //change nextLast
         if (nextLast == items.length - 1) {
             nextLast = 0;
         } else {
             nextLast++;
+        }
+
+        //resize
+        if (items.length == size + 2) {
+            this.resize(size * 2);
         }
     }
 
