@@ -143,8 +143,9 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
+
         T target = items[toFirst()];
-        items[toFirst()] = null;
+        size--;
 
         //改变nextfirst
         nextFirst = toFirst();
@@ -167,7 +168,7 @@ public class ArrayDeque<T> {
             return null;
         }
         T target = items[toLast()];
-        items[toLast()] = null;
+        size--;
 
         //改变nextLast
         nextLast = toLast();
