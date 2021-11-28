@@ -188,7 +188,7 @@ public class ArrayDeque<T> {
      */
     public T get(int index) {
         //take constant time.
-        if (index >= size) {
+        if (index >= size || index < 0) {
             return null;
         }
         if (nextFirst + index + 1 <= items.length - 1) {
