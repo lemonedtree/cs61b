@@ -175,7 +175,7 @@ public class ArrayDeque<T> {
         nextLast = toLast();
 
         //downsize
-        if (size * 1.0 / (items.length) < 0.25) {
+        if (size * 1.0 / (items.length) < 0.25 && items.length >= 16) {
             resize(size / 2);
         }
 
