@@ -10,11 +10,11 @@ public class LinkedListDeque<T> {
         sentB.prev = sentF;
     }
 
-    private class Node{
+    private class Node {
         private Node prev;
         private Node last;
         private T item;
-        private Node(){
+        private Node() {
         }
         private Node(Node prev, T item, Node last) {
             this.last = last;
@@ -73,7 +73,7 @@ public class LinkedListDeque<T> {
      */
     public void printDeque() {
         Node p = sentF.last;
-        while(p != sentB) {
+        while (p != sentB) {
             System.out.print(p.item + " ");
             p = p.last;
         }

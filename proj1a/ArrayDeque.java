@@ -8,11 +8,11 @@ public class ArrayDeque<T> {
         //Creates an empty array deque
     }
 
-    private void resize(int eSize) {
-        T[] eItems = (T[]) new Object[eSize];
-        for (int i = 0; i < size; i++) {
-            //find the item to be copy
-            int j = toFirst();
+    private void resize(int eLength) {
+        T[] eItems = (T[]) new Object[eLength];
+
+        //复制了以后，nextFirst 去了第一个位置,即 0
+        for (int i = 1, j = toFirst(); i <= size; i++) {
 
             //copy the item
             eItems[i] = items[j];
@@ -23,9 +23,10 @@ public class ArrayDeque<T> {
             } else {
                 j++;
             }
-
         }
         items = eItems;
+        nextFirst = 0;
+        nextLast = size + 1;
     }
 
 
@@ -36,6 +37,7 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
 
+        //resize
         if (items.length == size + 2) {
             this.resize(size * 2);
         }
@@ -45,7 +47,6 @@ public class ArrayDeque<T> {
         } else {
             nextFirst--;
         }
-
     }
 
     /**
@@ -55,8 +56,10 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         // take constant time, except during resizing operations.
         items[nextLast] = item;
+
         size++;
 
+        //resize
         if (items.length == size + 2) {
             this.resize(size * 2);
         }
@@ -72,7 +75,7 @@ public class ArrayDeque<T> {
      * Returns true if deque is empty, false otherwise.
      * @return boolean
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         if (size == 0) {
             return true;
         }
@@ -90,7 +93,7 @@ public class ArrayDeque<T> {
 
     private int toFirst() {
         int first;
-        if (nextFirst == items.length - 1){
+        if (nextFirst == items.length - 1) {
             first = 0;
         } else {
             first = nextFirst + 1;
@@ -102,7 +105,7 @@ public class ArrayDeque<T> {
         int last;
         if (nextLast == 0) {
             last = items.length - 1;
-        } else{
+        } else {
             last = nextLast - 1;
         }
         return last;
@@ -115,7 +118,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return;
         }
-        while(true) {
+        while (true) {
             int i = toFirst();
             System.out.println(items[i] + " ");
             if (i == items.length - 1) {
@@ -183,11 +186,14 @@ public class ArrayDeque<T> {
      * @return T
      */
     public T get(int index) {
-        if (index >= size){
+        //take constant time.
+        if (index >= size) {
             return null;
         }
-        //take constant time.
-        int first = toFirst();
-        return items[first + index];
+        if (nextFirst + index + 1 <= items.length - 1) {
+            return items[nextFirst + index + 1];
+        } else {
+            return items[index - items.length + nextFirst + 1];
+        }
     }
 }
