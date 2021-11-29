@@ -1,8 +1,26 @@
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class IntListTest {
+
+    @Test
+    public void testReverse() {
+        IntList input = IntList.of(3, 1, 10, 4);
+        IntList expect = IntList.of(4, 10, 1, 3);
+        IntList actual = IntList.reverse(input);
+
+        //That the function returns a reversed list.
+        assertEquals(expect, actual);
+
+        //That the function is destructive, i.e. when it is done running,
+        // the list pointed to by A has been tampered with.
+        // You can use assertNotEquals. This is sort of a silly test.
+        assertNotEquals(IntList.of(3, 1, 10, 4),input);
+
+        //That the method handles a null input properly
+        input = null;
+        assertNull(IntList.reverse(input));
+    }
 
     /**
      * Example test that verifies correctness of the IntList.of static
