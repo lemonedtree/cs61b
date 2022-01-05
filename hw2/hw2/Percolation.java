@@ -87,7 +87,7 @@ public class Percolation {
             neighbors[1] = findXY(row + 1, col);
         }
         //左边那个邻居
-        if (col == 0  || !isOpen(row, col - 1) ) {
+        if (col == 0  || !isOpen(row, col - 1)) {
             neighbors[2] = -1;
         } else {
             neighbors[2] = findXY(row, col - 1);

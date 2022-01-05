@@ -5,10 +5,12 @@ public class PercolationStats {
     private int N;
     private int T;
     private int[] openSitesRecord;
+    private PercolationFactory pf;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         this.N = N;
         this.T = T;
+        this.pf = pf;
         openSitesRecord = new int[T];
         pf = new PercolationFactory();
         for (int i = 0; i < T; i++) {
