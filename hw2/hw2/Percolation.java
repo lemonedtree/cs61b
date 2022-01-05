@@ -122,7 +122,7 @@ public class Percolation {
     public boolean percolates() {
         boolean flag = false;
         for (int col = 0; col < N; col++) {
-            if (isFull(N - 1, col)){
+            if (isFull(N - 1, col)) {
                 flag = true;
                 break;
             }

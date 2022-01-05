@@ -8,6 +8,9 @@ public class PercolationStats {
     private PercolationFactory pf;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N <= 0 || T <= 0) {
+            throw new java.lang.IllegalArgumentException("N and T should not less than zero");
+        }
         this.N = N;
         this.T = T;
         this.pf = pf;
@@ -25,12 +28,15 @@ public class PercolationStats {
     }
 
     // sample mean of percolation threshold
-    public double mean() {
+    private double average() {
         double sum = 0;
         for (int i = 0; i < T; i++) {
             sum += openSitesRecord[i];
         }
         return (sum / T);
+    }
+    public double mean() {
+        return average() / N / N;
     }
 
     // sample standard deviation of percolation threshold
