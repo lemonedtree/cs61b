@@ -104,7 +104,7 @@ public class Percolation {
         }
 
         boolean flag = false;
-        for (int i = 0; i < N - 1; i++) {
+        for (int i = 0; i < N; i++) {
             if (opens[i] && w.connected(i, findXY(row, col))) {
                 flag = true;
                 break;
