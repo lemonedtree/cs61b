@@ -12,7 +12,6 @@ public class PercolationStats {
         this.T = T;
         this.pf = pf;
         openSitesRecord = new int[T];
-        pf = new PercolationFactory();
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
             while (!p.percolates()) {
