@@ -127,7 +127,7 @@ public class Percolation {
         boolean flag = false;
         for (int i:topRow) {
             for (int j:bottomRow) {
-                if (w.connected(i, j)) {
+                if (w.connected(i, j) && opens[i] && opens[j]) {
                     flag = true;
                     break;
                 }
