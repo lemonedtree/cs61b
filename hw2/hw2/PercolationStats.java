@@ -16,8 +16,8 @@ public class PercolationStats {
             Percolation p = pf.make(N);
             while (!p.percolates()) {
                 //random是0-1之间的浮点数， 我要的是 0 - N 之间的整数
-                int row = (int) Math.random() * N;
-                int col = (int) Math.random() * N;
+                int row = (int) (Math.random() * N);
+                int col = (int) (Math.random() * N);
                 p.open(row, col);
             }
             openSitesRecord[i] = p.numberOfOpenSites();

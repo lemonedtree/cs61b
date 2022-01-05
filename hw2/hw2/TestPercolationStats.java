@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TestPercolationStats {
     @Test
     public void test1() {
-        PercolationStats ps = new PercolationStats(5, 3, new PercolationFactory());
-
+        PercolationStats ps = new PercolationStats(20, 10, new PercolationFactory());
+        System.out.println(ps.mean());
     }
 }

@@ -8,8 +8,6 @@ public class Percolation {
     private WeightedQuickUnionUF w;
     private int numberOfOpenSites;
     private boolean[] opens;
-    private int[] topRow;
-    private int[] bottomRow;
     
     public Percolation(int N) {
         if (N <= 0) {
@@ -19,12 +17,6 @@ public class Percolation {
         w = new WeightedQuickUnionUF(N * N);
         opens = new boolean[N * N];
         numberOfOpenSites = 0;
-        topRow = new int[N];
-        bottomRow = new int[N];
-        for (int i = 0; i < N; i++) {
-            topRow[i] = i;
-            bottomRow[i] = N * (N - 1) + i;
-        }
     }
 
     private int findXY(int row, int col) {
@@ -38,16 +30,15 @@ public class Percolation {
             throw new java.lang.IndexOutOfBoundsException("There is no such position!");
         }
 
-
         if (!isOpen(row, col)) {
             //记录open状态
             opens[findXY(row, col)] = true;
             numberOfOpenSites++;
-            //把它和它的邻居连接起来
+            //把它和它已经开了的邻居连接起来
             int[] neighbors = findOpenNeighbors(row, col);
             int xy = findXY(row, col);
             for (int i = 0; i < 4; i++) {
-                //首先要存在邻居
+                //首先要存在已经开了的邻居
                 if (neighbors[i] != -1) {
                     //如果本来没有连接，就连接起来
                     if (!w.connected(neighbors[i], xy)) {
@@ -107,14 +98,19 @@ public class Percolation {
             throw new java.lang.IndexOutOfBoundsException("There is no such position!");
         }
 
+        //如果没开，肯定没full
+        if (!isOpen(row, col)) {
+            return false;
+        }
+
         boolean flag = false;
-        for (int i:topRow) {
-            if (w.connected(i, findXY(row, col))) {
+        for (int i = 0; i < N - 1; i++) {
+            if (opens[i] && w.connected(i, findXY(row, col))) {
                 flag = true;
                 break;
             }
         }
-        return (flag && isOpen(row, col));
+        return flag;
     }
 
     // number of open sites
@@ -125,12 +121,10 @@ public class Percolation {
     // does the system percolate?
     public boolean percolates() {
         boolean flag = false;
-        for (int i:topRow) {
-            for (int j:bottomRow) {
-                if (w.connected(i, j) && opens[i] && opens[j]) {
-                    flag = true;
-                    break;
-                }
+        for (int col = 0; col < N; col++) {
+            if (isFull(N - 1, col)){
+                flag = true;
+                break;
             }
         }
         return flag;
