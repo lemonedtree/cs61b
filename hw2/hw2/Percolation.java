@@ -39,19 +39,19 @@ public class Percolation {
         }
 
 
-        if (isOpen(row,col) == false) {
+        if (!isOpen(row, col)) {
             //记录open状态
             opens[findXY(row, col)] = true;
             numberOfOpenSites++;
             //把它和它的邻居连接起来
-            int[] neighbors = findOpenNeighbors(row,col);
-            int xy = findXY(row,col);
+            int[] neighbors = findOpenNeighbors(row, col);
+            int xy = findXY(row, col);
             for (int i = 0; i < 4; i++) {
                 //首先要存在邻居
                 if (neighbors[i] != -1) {
                     //如果本来没有连接，就连接起来
-                    if (w.connected(neighbors[i],xy) == false) {
-                        w.union(neighbors[i],findXY(row,col));
+                    if (!w.connected(neighbors[i], xy)) {
+                        w.union(neighbors[i], findXY(row, col));
                     }
                 }
             }
@@ -63,7 +63,7 @@ public class Percolation {
         if (row >= N || col >= N || row < 0 || col < 0) {
             throw new java.lang.IndexOutOfBoundsException("There is no such position!");
         }
-        return opens[findXY(row,col)];
+        return opens[findXY(row, col)];
     }
 
     /**
@@ -72,28 +72,28 @@ public class Percolation {
      * @param col
      * @return int[] neighbors
      */
-    private int[] findOpenNeighbors(int row,int col) {
+    private int[] findOpenNeighbors(int row, int col) {
         int[] neighbors = new int[4];
         //上面那个邻居
-        if (row == 0 || isOpen(row - 1,col) == false) {
+        if (row == 0 || !isOpen(row - 1, col)) {
             neighbors[0] = -1;
         } else {
             neighbors[0] = findXY(row - 1, col);
         }
         //下面那个邻居
-        if (row == N - 1 || isOpen(row + 1,col) == false) {
+        if (row == N - 1 || !isOpen(row + 1, col)) {
             neighbors[1] = -1;
         } else {
             neighbors[1] = findXY(row + 1, col);
         }
         //左边那个邻居
-        if (col == 0  || isOpen(row,col - 1) == false) {
+        if (col == 0  || !isOpen(row, col - 1) ) {
             neighbors[2] = -1;
         } else {
             neighbors[2] = findXY(row, col - 1);
         }
         //右边那个邻居
-        if (col == N - 1  || isOpen(row,col + 1) == false) {
+        if (col == N - 1  || !isOpen(row, col + 1)) {
             neighbors[3] = -1;
         } else {
             neighbors[3] = findXY(row, col + 1);
@@ -109,12 +109,12 @@ public class Percolation {
 
         boolean flag = false;
         for (int i:topRow) {
-            if (w.connected(i,findXY(row, col))) {
+            if (w.connected(i, findXY(row, col))) {
                 flag = true;
                 break;
             }
         }
-        return (flag && isOpen(row,col));
+        return (flag && isOpen(row, col));
     }
 
     // number of open sites
@@ -127,7 +127,7 @@ public class Percolation {
         boolean flag = false;
         for (int i:topRow) {
             for (int j:bottomRow) {
-                if (w.connected(i,j)){
+                if (w.connected(i, j)) {
                     flag = true;
                     break;
                 }
@@ -135,4 +135,8 @@ public class Percolation {
         }
         return flag;
     }
+    // use for unit testing (not required)
+    public static void main(String[] args) {
+    }
+
 }

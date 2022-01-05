@@ -81,7 +81,7 @@ public class PercolationVisualizer {
     }
 
     public static void main(String[] args) {
-        String filename = "inputFiles/input20.txt";
+        String filename = args[0];
         simulateFromFile(filename);
     }
 }
