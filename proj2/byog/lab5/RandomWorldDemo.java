@@ -13,7 +13,7 @@ public class RandomWorldDemo {
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
 
-    private static final long SEED = 2873123;
+    private static final long SEED = 2873;
     private static final Random RANDOM = new Random(SEED);
 
     /**
@@ -38,7 +38,7 @@ public class RandomWorldDemo {
         int tileNum = RANDOM.nextInt(3);
         switch (tileNum) {
             case 0: return Tileset.WALL;
-            case 1: return Tileset.FLOWER;
+            case 1: return Tileset.GRASS;
             case 2: return Tileset.NOTHING;
             default: return Tileset.NOTHING;
         }

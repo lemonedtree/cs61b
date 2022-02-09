@@ -1,6 +1,15 @@
 import edu.princeton.cs.algs4.Queue;
 
 public class MergeSort {
+    public static void main(String[] args) {
+        Queue<String> input = new Queue<>();
+        input.enqueue("hudihafi");
+        input.enqueue("dafldjfal");
+        input.enqueue("fadfdf");
+        System.out.println("The input is: " + input);
+        Queue<String> result = mergeSort(input);
+        System.out.println("After sorted: " + result.toString());
+    }
     /**
      * Removes and returns the smallest item that is in q1 or q2.
      *
@@ -35,7 +44,14 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> result = new Queue<Queue<Item>>();
+        int n = items.size();
+        for (int i = 0; i < n; i++) {
+            Queue<Item> item = new Queue<Item>();
+            item.enqueue(items.dequeue());
+            result.enqueue(item);
+        }
+        return result;
     }
 
     /**
@@ -53,14 +69,32 @@ public class MergeSort {
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
-        // Your code here!
-        return null;
+        //private static <Item extends Comparable> Item getMin(
+        //            Queue<Item> q1, Queue<Item> q2) {
+        //The method assumes that both q1 and q2 are in sorted order, with the smallest item first. At
+        //     * most one of q1 or q2 can be empty (but both cannot be empty).
+        //会破坏q1 q2哦
+        Queue<Item> result = new Queue<>();
+        while(true) {
+            result.enqueue(getMin(q1, q2));
+            if (q1.isEmpty() && q2.isEmpty()) {
+                break;
+            }
+        }
+        return result;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
+        Queue<Queue<Item>> queues =  makeSingleItemQueues(items);
+        while(true) {
+            queues.enqueue(mergeSortedQueues(queues.dequeue(), queues.dequeue()));
+            if (queues.size() == 1) {
+                break;
+            }
+        }
+        items = queues.dequeue();
         return items;
     }
 }

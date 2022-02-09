@@ -6,6 +6,7 @@ import java.util.Observable;
  * @author Josh Hug
  */
 public abstract class MazeExplorer extends Observable {
+    //一创建，就自动有球球啦，球球自动有xy
     protected int[] distTo;
     protected int[] edgeTo;
     protected boolean[] marked;

@@ -53,19 +53,55 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
+        int i = hash(key);
+        if (buckets[i].containsKey(key)) {
+            return buckets[i].get(key);
+        } else {
+            return null;
+        }
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
+        int i = hash(key);
+        if (buckets[i].containsKey(key)) {
+            buckets[i].put(key, value);
+        } else {
+            buckets[i].put(key, value);
+            size++;
+        }
+        if (loadFactor() > MAX_LF) {
+            resize(2 * (buckets.length));
+        }
+    }
+
+    private void resize(int eSize) {
+        ArrayMap<K, V>[] eBuckets = new ArrayMap[eSize];
+        //ArrayMap<K, V>[] eBuckets = new ArrayMap<K, V>[eSize] 这样不行是因为它是泛型！
+        ArrayMap<K, V>[] shortBuckets = buckets;
+        for (int i = 0; i < eBuckets.length; i += 1) {
+            eBuckets[i] = new ArrayMap<>();
+        }
+        buckets = eBuckets;
+        for (int i = 0; i < shortBuckets.length; i++) {
+            for (K key : shortBuckets[i].keySet()) {
+                //错在了hash的算法，hash仍然按照之前的length来算
+                eBuckets[hash(key)].put(key, shortBuckets[i].get(key));
+            }
+        }
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
